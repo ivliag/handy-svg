@@ -1,19 +1,41 @@
 {
   "name": "handy-svg",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
+  "version": "1.0.2",
+  "description": "The most handy way to use <svg> on the web",
+  "main": "src/index.tsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf ./dist && tsc --declaration --outDir ./dist",
+    "lint": "eslint . && tsc --noEmit",
+    "pub": "cp ./package.json ./dist && cp ./README.md ./dist && cd ./dist && npm publish",
+    "release": "npm run lint && npm version patch && npm run build && npm run pub",
+    "postinstall": "husky install"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivliag/handy-svg.git"
   },
-  "author": "Ivan Liagushkin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ivliag/handy-svg/issues"
   },
-  "homepage": "https://github.com/ivliag/handy-svg#readme"
+  "homepage": "https://github.com/ivliag/handy-svg#readme",
+  "dependencies": {
+    "lodash.debounce": "4.0.8"
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "4.0.6",
+    "@types/react": "17.0.43",
+    "@typescript-eslint/eslint-plugin": "5.18.0",
+    "@typescript-eslint/parser": "5.18.0",
+    "eslint": "8.12.0",
+    "husky": "7.0.4",
+    "react": "17.0.2",
+    "typescript": "4.6.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
 }
