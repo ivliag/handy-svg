@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "lib": ["ESNext", "dom"],
+        "removeComments": true,
+        "target": "ES6",
+        "jsx": "preserve",
+
+        "baseUrl": "./src",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+
+        "alwaysStrict": true,
+        "allowUnreachableCode": false,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
+    }
+}
