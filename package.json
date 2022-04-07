@@ -4,9 +4,10 @@
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
-    "build": "tsup ./src/index.tsx ./src/lib/injector.ts --dts",
+    "build": "rm -rf ./dist && tsup ./src/index.tsx ./src/lib/injector.ts --dts",
     "lint": "eslint . && tsc --noEmit",
-    "publish": "npm run lint && npm version patch && npm run build && npm run publish"
+    "publish": "cp ./package.json ./dist && cd ./dist && npm publish --registry https://registry.npmjs.org",
+    "release": "npm run lint && npm version patch && npm run build && npm run publish"
   },
   "repository": {
     "type": "git",
