@@ -6,10 +6,10 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc --declaration --outDir ./dist",
     "lint": "eslint . && tsc --noEmit",
-    "publish": "cp ./package.json ./dist && cd ./dist && npm publish",
-    "release": "npm run lint && npm version patch && npm run build && npm run publish",
+    "pub": "cp ./package.json ./dist && cp ./README.md ./dist && cd ./dist && npm publish",
+    "release": "npm run lint && npm version patch && npm run build && npm run pub",
     "cp": "npm run build && mkdir -p ../geoadv/node_modules/handy-svg && cp -r ./dist/ ../geoadv/node_modules/handy-svg/",
-    "prepare": "husky install"
+    "postinstall": "husky install"
   },
   "repository": {
     "type": "git",
