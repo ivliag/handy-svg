@@ -8,7 +8,8 @@
     "lint": "eslint . && tsc --noEmit",
     "publish": "cp ./package.json ./dist && cd ./dist && npm publish",
     "release": "npm run lint && npm version patch && npm run build && npm run publish",
-    "cp": "npm run build && mkdir -p ../geoadv/node_modules/handy-svg && cp -r ./dist/ ../geoadv/node_modules/handy-svg/"
+    "cp": "npm run build && mkdir -p ../geoadv/node_modules/handy-svg && cp -r ./dist/ ../geoadv/node_modules/handy-svg/",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "5.18.0",
     "@typescript-eslint/parser": "5.18.0",
     "eslint": "8.12.0",
+    "husky": "7.0.4",
     "react": "17.0.2",
     "typescript": "4.6.3"
   },
