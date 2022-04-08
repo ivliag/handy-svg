@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import {injector} from './lib/injector';
 
-interface Props {
+type Props = {
     src: string;
     loadTimeot?: number;
     loadRetryCount?: number;
