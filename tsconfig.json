@@ -3,7 +3,8 @@
         "lib": ["ESNext", "dom"],
         "removeComments": true,
         "target": "ES6",
-        "jsx": "preserve",
+        "module": "commonjs",
+        "jsx": "react",
 
         "baseUrl": "./src",
         "esModuleInterop": true,

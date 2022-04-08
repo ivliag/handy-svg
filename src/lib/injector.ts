@@ -6,6 +6,12 @@ const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 const INJECTION_DELAY = 20;
 
+type LoadOptions = {
+    flushImmediate?: boolean;
+    timeout?: number;
+    retryCount?: number;
+}
+
 class Injector {
     private fragment: DocumentFragment | null = null;
 
@@ -58,11 +64,10 @@ class Injector {
             this.symbolsMountingPoint = defs;
 
             sprite.appendChild(defs);
-
-
-            sprite.style.position = 'absolute';
-            sprite.style.left = '-9999px';
-            sprite.style.top = '-9999px';
+            sprite.ariaHidden = 'true';
+            sprite.style.width = '0';
+            sprite.style.height = '0';
+            sprite.style.overflow = 'hidden';
 
             document.body.appendChild(sprite);
         }
@@ -74,21 +79,23 @@ class Injector {
         return extractFileName(url);
     }
 
-    load(
+    async load(
         url: string,
-        {isImmediate}: {isImmediate?: boolean} = {}
+        {flushImmediate, timeout, retryCount}: LoadOptions = {}
     ) {
         if (this.cache.has(url)) {
-            return Promise.resolve();
+            return;
         }
 
-        return fetchSvg(url)
+        this.cache.add(url);
+
+        return fetchSvg(url, {timeout, retryCount})
             .then((svgString) => {
                 this.accumulateSvg({url, svgString})
-                this.cache.add(url)
-                isImmediate ? this.flushSvg() : this.deboucedflushSvg()
+                flushImmediate ? this.flushSvg() : this.deboucedflushSvg()
             })
             .catch((error: Error) => {
+                this.cache.delete(url);
                 throw error;
             });
     }

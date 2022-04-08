@@ -1,27 +1,26 @@
 {
   "name": "handy-svg",
   "version": "1.0.0",
-  "description": "",
+  "description": "A tool for loading svgs to the sprite on the fly",
   "main": "src/index.tsx",
   "scripts": {
-    "build": "rm -rf ./dist && tsup ./src/index.tsx ./src/lib/injector.ts --dts",
+    "build": "rm -rf ./dist && tsc --declaration --outDir ./dist",
     "lint": "eslint . && tsc --noEmit",
-    "publish": "cp ./package.json ./dist && cd ./dist && npm publish --registry https://registry.npmjs.org",
-    "release": "npm run lint && npm version patch && npm run build && npm run publish"
+    "publish": "cp ./package.json ./dist && cd ./dist && npm publish",
+    "release": "npm run lint && npm version patch && npm run build && npm run publish",
+    "cp": "npm run build && mkdir -p ../geoadv/node_modules/handy-svg && cp -r ./dist/ ../geoadv/node_modules/handy-svg/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivliag/handy-svg.git"
   },
-  "author": "Ivan Liagushkin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ivliag/handy-svg/issues"
   },
   "homepage": "https://github.com/ivliag/handy-svg#readme",
   "dependencies": {
-    "lodash.debounce": "4.0.8",
-    "react": "17.0.2"
+    "lodash.debounce": "4.0.8"
   },
   "devDependencies": {
     "@types/lodash.debounce": "4.0.6",
@@ -29,7 +28,13 @@
     "@typescript-eslint/eslint-plugin": "5.18.0",
     "@typescript-eslint/parser": "5.18.0",
     "eslint": "8.12.0",
-    "tsup": "5.12.1",
+    "react": "17.0.2",
     "typescript": "4.6.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }

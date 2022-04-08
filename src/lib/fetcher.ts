@@ -1,7 +1,7 @@
 import {checkSvgContent} from './utils';
 
 const DEFAULT_TIMEOUT = 4800;
-const DEFAULT_RETRY_COUNT = 3;
+const DEFAULT_RETRY_COUNT = 2;
 
 interface RequestParams extends RequestInit {
     timeout?: number;
@@ -11,18 +11,18 @@ interface RequestParams extends RequestInit {
 async function fetchWithTimeout(url: string, params?: RequestParams) {
     const timeout = params?.timeout || DEFAULT_TIMEOUT;
     const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     return fetch(url, {
         ...params,
         signal: controller.signal
     })
     .then((response) => {
-        clearTimeout(id);
+        clearTimeout(timeoutId);
         return response;
     })
     .catch((error) => {
-        clearTimeout(id);
+        clearTimeout(timeoutId);
         throw error;
     })
 }
@@ -31,25 +31,28 @@ async function fetchWithTimeout(url: string, params?: RequestParams) {
 export function fetchSvg(url: string, params?: RequestParams) {
     let retryCount = params?.retryCount === undefined ? DEFAULT_RETRY_COUNT : params?.retryCount;
 
-    return fetchWithTimeout(url, params)
-        .then((response) => {
-            if (response.ok) {
-                return response.text();
-            }
+    function doFetch(url: string, params?: RequestParams): Promise<string> {
+        return fetchWithTimeout(url, params)
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                }
 
-            throw new Error(`Unable to load SVG file: ${url}`);
-        })
-        .catch((error) => {
-            if (retryCount > 0) {
-                retryCount--;
-                return fetchWithTimeout(url, params);
-            }
+                throw new Error(`Unable to load SVG file: ${url}`);
+            })
+            .catch((error) => {
+                if (retryCount > 0) {
+                    retryCount--;
+                    return doFetch(url, params);
+                }
 
-            throw error;
-        })
+                throw error;
+            })
+    }
+
+    return doFetch(url, params)
         .then((response) => {
-            const svgContent = response as string;
-            checkSvgContent(svgContent);
-            return svgContent;
+            checkSvgContent(response);
+            return response;
         });
 }

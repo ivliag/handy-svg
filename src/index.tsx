@@ -1,20 +1,32 @@
-import {useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {injector} from './lib/injector';
 
 interface Props {
     url: string;
-    [key: string]: string | number;
+    loadTimeot?: number;
+    loadRetryCount?: number;
+    [key: string]: string | number | undefined;
 }
 
 export const HandySvg = (props: Props) => {
-    const {url, ...restProps} = props;
+    const {url, loadTimeot, loadRetryCount, ...restProps} = props;
+    const isFirstRun = useRef(true);
 
     useEffect(() => {
-        injector.load(url);
-    }, []);
+        if (isFirstRun.current) {
+            injector.load(
+                url,
+                {timeout: loadTimeot, retryCount: loadRetryCount}
+            );
 
-    useEffect(() => {
-        injector.load(url, {isImmediate: true});
+            isFirstRun.current = false;
+            return;
+        }
+
+        injector.load(
+            url,
+            {timeout: loadTimeot, retryCount: loadRetryCount, flushImmediate: true}
+        );
     }, [url]);
 
     return (
