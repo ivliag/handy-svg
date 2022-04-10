@@ -31,7 +31,7 @@ export const HandySvg = (props: Props) => {
 
     return (
         <svg {...restProps}>
-            <use xlinkHref={`#${injector.getId(src)}`} />
+            <use href={`#${injector.getId(src)}`} />
         </svg>
     )
 };

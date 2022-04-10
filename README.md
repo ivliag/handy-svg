@@ -5,15 +5,15 @@ The most handy way to use `<svg>` on the web.
 ![lint](https://github.com/ivliag/handy-svg/actions/workflows/lint.yml/badge.svg)
 
 ## How it works
-1. Fetches your svgs in browser with `fetch` request. And caches of course.
-2. Puts it into [svg-sprite](https://daily-dev-tips.com/posts/svg-sprites/) that is stored in your `body`.
+1. Fetches your SVGs in browser with `fetch` request. And caches of course.
+2. Puts it into [sprite](https://daily-dev-tips.com/posts/svg-sprites/) that is stored in your `body`.
 3. Provides you with the React component and standalone API to use this icon in your code.
-4. That's it. You now may use all the fancy css-styling like if it was inline svg.
+4. That's it. You now may use all the fancy css-styling like if it was inline SVG.
 
 ## Why
 1. Sprites may become huge, containing hundreds of icons, and you don't need all of your icons on every page.
 2. Styling with css is a must-have, and this is the only way of getting it except for inlining.
-3. Inlining svgs with React might be painful (there is a [tool](https://react-svgr.com/) though), it also increases the bundle size and just doesn't feel right.
+3. Inlining SVGs with React might be painful (there is a [tool](https://react-svgr.com/) though), it also increases the bundle size and just doesn't feel right.
 
 ## Usage
 
@@ -37,7 +37,7 @@ export const Icon = () => (
 );
 ```
 
-I assume here that you use `file-loader` for bundling your svg-files and get public url to svg file in `iconSrc`, like so:
+I assume here that you use `file-loader` for bundling your svg-files and get public url to SVG file in `iconSrc`, like so:
 ```javascript
 module.exports = {
     module: {
@@ -54,12 +54,12 @@ module.exports = {
 };
 ```
 
-But in fact there is no difference for the **handy-svg** where you get your svgs urls from.
+But in fact there is no difference for the **handy-svg** where you get your SVGs urls from.
 
 #### Standalone
 You may also use **handy-svg** without React at all.
 
-``` typescript
+```typescript
 import {injector} from 'handy-svg/lib/injector';
 
 const src = "https://cdn-server.net/icon.svg";
@@ -70,8 +70,8 @@ injector.load(src);
 // Gets the id of your svg in sprite
 const id = injector.getId(src);
 
-// Than you can use it at your will
-const svg = `<svg><use xlinkHref="#${id}" /></svg>`;
+// Then you can use it at your will
+const svg = `<svg><use href="#${id}" /></svg>`;
 ```
 
 ## API
