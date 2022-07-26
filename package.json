@@ -3,12 +3,13 @@
   "version": "1.0.5",
   "description": "The most handy way to use <svg> on the web",
   "main": "src/index.tsx",
+  "private": false,
   "scripts": {
     "build": "rm -rf ./dist && tsc --declaration --outDir ./dist",
     "lint": "eslint . && tsc --noEmit",
     "pub": "cp ./package.json ./dist && cp ./README.md ./dist && cd ./dist && npm publish",
     "release": "npm run lint && npm version patch && npm run build && npm run pub",
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "postpublish": "git push origin master"
   },
   "repository": {
