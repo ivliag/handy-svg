@@ -1,6 +1,6 @@
 {
   "name": "handy-svg",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "The most handy way to use <svg> on the web",
   "main": "src/index.tsx",
   "private": false,
