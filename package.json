@@ -9,7 +9,6 @@
     "lint": "eslint . && tsc --noEmit",
     "pub": "cp ./package.json ./dist && cp ./README.md ./dist && cd ./dist && npm publish",
     "release": "npm run lint && npm version patch && npm run build && npm run pub",
-    "prepare": "husky install",
     "postpublish": "git push origin master"
   },
   "repository": {
