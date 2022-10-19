@@ -1,3 +1,7 @@
+# 🚨 Moved
+`handy-svg` is now part of `@handy-ones` and lives in [monorepo](https://github.com/ivliag/handy-ones/tree/master/packages/handy-svg)
+
+
 <img width="200" alt="handy_svg" src="https://user-images.githubusercontent.com/2974415/162402689-e1382bba-9fe1-4bf8-8d45-bc28a78ab5c7.png">
 
 External SVGs that you can style
